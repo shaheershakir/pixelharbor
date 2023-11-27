@@ -4,6 +4,8 @@ import { PRODUCT_CATEGORY } from "@/config/intex";
 import { Button } from "./ui/button";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+import Link from "next/link";
 
 type Category = (typeof PRODUCT_CATEGORY)[number];
 
@@ -16,8 +18,8 @@ interface NavItemProps {
 
 const NavItem = ({ category, handleOpen, isAnyOpen, isOpen }: NavItemProps) => {
   return (
-    <div className="flex ">
-      <div className="reletive flex items-center"></div>
+    <div className="flex items-center">
+      <div className="relative flex items-center"></div>
       <Button
         className="gap-1.5"
         onClick={handleOpen}
@@ -30,6 +32,53 @@ const NavItem = ({ category, handleOpen, isAnyOpen, isOpen }: NavItemProps) => {
           })}
         />
       </Button>
+      {isOpen ? (
+        <div
+          className={cn(
+            "absolute inset-x-0 top-full text-sm text-muted-foreground",
+            {
+              "animate-in fade-in-10 slide-in-from-top-5": !isAnyOpen,
+            }
+          )}
+        >
+          <div
+            className="absolute inset-0 top-1/2 bg-white shadow"
+            aria-hidden="true"
+          />
+          <div className="relative bg-white">
+            <div className="mx-auto max-w-7xl px-8">
+              <div className="grid grid-cols-4 gap-x-8 gap-y-10 py-16">
+                <div className="col-span-4 col-start-1 grid grid-cols-3 gap-x-8">
+                  {category.fearured.map((item) => (
+                    <div
+                      key={item.name}
+                      className="group relative text-base sm:text-sm"
+                    >
+                      <div className="relative aspect-video overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
+                        <Image
+                          src={item.imageSrc}
+                          layout="fill"
+                          alt="product category image"
+                          className="object-cover object-center"
+                        />
+                      </div>
+                      <Link
+                        href={item.href}
+                        className="mt-6 block font-medium text-gray-900"
+                      >
+                        {item.name}
+                      </Link>
+                      <p className="mt-1" aria-hidden="true">
+                        Shop Now
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };
