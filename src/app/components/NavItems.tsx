@@ -14,6 +14,12 @@ const NavItems = () => {
         setActiveIntex(null);
       }
     };
+
+    window.addEventListener("keydown", handle);
+
+    return () => {
+      window.removeEventListener("keydown", handle);
+    };
   }, []);
 
   const isAnyOpen = activeIntex !== null;
