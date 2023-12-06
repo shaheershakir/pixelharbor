@@ -19,10 +19,10 @@ const start = async () => {
   app.use((req, res) => nextHandler(req, res));
 
   nextApp.prepare().then(() => {
-    payload.logger.info("next app prepared");
+    // payload.logger.info("next app prepared");
 
     app.listen(PORT, async () => {
-      payload.logger.info(`Next app URL: $(process.env.NEXT_PUBLIC_APP_URL)`);
+      // payload.logger.info(`Next app URL: $(process.env.NEXT_PUBLIC_APP_URL)`);
     });
   });
 };
